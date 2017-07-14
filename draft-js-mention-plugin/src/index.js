@@ -136,7 +136,13 @@ export default (config = {}) => {
     onTab: (keyboardEvent) => callbacks.onTab && callbacks.onTab(keyboardEvent),
     onUpArrow: (keyboardEvent) => callbacks.onUpArrow && callbacks.onUpArrow(keyboardEvent),
     onEscape: (keyboardEvent) => callbacks.onEscape && callbacks.onEscape(keyboardEvent),
-    handleReturn: (keyboardEvent) => callbacks.handleReturn && callbacks.handleReturn(keyboardEvent),
+    handleReturn: (keyboardEvent) => {
+      const result = callbacks.handleReturn && callbacks.handleReturn(keyboardEvent);
+      if (result === 'handled') {
+        return true;
+      }
+      return false;
+    },
     onChange: (editorState) => {
       if (callbacks.onChange) return callbacks.onChange(editorState);
       return editorState;
